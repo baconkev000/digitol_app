@@ -59,7 +59,7 @@
 
 ## About The Project
 
-[![DiGitol][product-screenshot]](https://example.com)
+[![DiGitol][product-screenshot]](https://ondigitol.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -129,16 +129,6 @@ Project Link: [https://github.com/baconkev000/digitol_app](https://github.com/ba
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ACKNOWLEDGMENTS -->
-
-## Acknowledgments
-
-- []()
-- []()
-- []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
@@ -154,7 +144,7 @@ Project Link: [https://github.com/baconkev000/digitol_app](https://github.com/ba
 [license-url]: https://github.com/baconkev000/digitol_app/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/kevindbaconjr
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: ./assets/digitol_logo.svg
 [ReactNative.com]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [ReactNative-url]: https://reactnative.dev/
 
