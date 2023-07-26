@@ -1,21 +1,41 @@
-import {StyleSheet, View} from 'react-native';
-import React from 'react';
-import PhoneInput from 'react-native-phone-number-input';
+import {StyleSheet, View, Alert} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import mainStyles from '../../mainStyles';
 import AppText from '../appText';
-import {useState, useRef} from 'react';
+import {IconButton} from 'react-native-paper';
+import React, {useState, useRef} from 'react';
+import PhoneNumber from 'libphonenumber-js';
+import PhoneInput from 'react-native-phone-number-input';
 
 const PhoneNumberScreen = ({navigation}) => {
   const insets = useSafeAreaInsets();
-  const [value, setValue] = useState('');
-  const [valid, setValid] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
   const phoneInput = useRef(null);
 
-  function doThis() {
-    console.log(value);
-  }
+  const handlePhoneNumberChange = inputValue => {
+    setPhoneNumber(inputValue);
+  };
+
+  const handleValidatePhoneNumber = () => {
+    try {
+      const parsedNumber = PhoneNumber.parsePhoneNumberFromString(phoneNumber);
+
+      if (parsedNumber && parsedNumber.isValid()) {
+        // add phone number to user info
+        navigation.navigate('EmailScreen');
+      } else {
+        Alert.alert(
+          'Invalid Phone Number',
+          'Please enter a valid phone number.',
+        );
+      }
+    } catch (error) {
+      Alert.alert(
+        'Error',
+        'An error occurred while validating the phone number.',
+      );
+    }
+  };
   return (
     <View
       style={[
@@ -27,6 +47,7 @@ const PhoneNumberScreen = ({navigation}) => {
           paddingRight: insets.right,
         },
         mainStyles.Container,
+        styles.container,
       ]}>
       <View style={styles.innerContent}>
         <AppText styles={styles.mainText} text={'LETS START YOUR'} />
@@ -39,27 +60,40 @@ const PhoneNumberScreen = ({navigation}) => {
             styles={{paddingBottom: 20}}
             text={'Enter your mobile number'}
           />
-
           <PhoneInput
-            style={styles.phoneInputStyle}
             ref={phoneInput}
-            defaultValue={value}
+            defaultValue={phoneNumber}
             defaultCode="US"
             onChangeFormattedText={text => {
-              setValue(text);
+              handlePhoneNumberChange(text);
             }}
-            withDarkTheme
-            withShadow
+            containerStyle={styles.phoneInputContainer}
+            textContainerStyle={styles.phoneInput}
+            countryPickerButtonStyle={styles.contryPickerBtn}
             autoFocus
-            onSubmitEditing={this.doThis}
           />
         </View>
+      </View>
+      <View style={styles.nextBtnContainer}>
+        <IconButton
+          icon="arrow-right"
+          style={styles.button}
+          iconColor={'white'}
+          size={20}
+          title="Validate"
+          onPress={() => {
+            handleValidatePhoneNumber();
+          }}
+        />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'space-between',
+  },
   innerContent: {
     marginTop: 100,
   },
@@ -67,6 +101,38 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     paddingBottom: 5,
+  },
+  invalidMessage: {
+    fontSize: 12,
+    color: '#e64e4c',
+    paddingTop: 5,
+  },
+  nextBtnContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+  button: {
+    backgroundColor: '#21AFFF',
+    width: '20%',
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+  },
+  phoneInputContainer: {
+    width: '100%',
+    borderRadius: 20,
+    borderColor: '#D9D9D9',
+    borderWidth: 3,
+  },
+  phoneInput: {
+    width: '100%',
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
+    backgroundColor: 'FAFAFA',
+  },
+  contryPickerBtn: {
+    backgroundColor: 'trasparent',
   },
 });
 

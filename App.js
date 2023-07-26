@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux';
 import Intro from './src/components/screens/IntroScreen';
 import AppText from './src/components/appText';
 import PhoneNumberScreen from './src/components/screens/PhoneNumberScreen';
+import EmailScreen from './src/components/screens/EmailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,14 +18,19 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="PhoneNumberScreen"
-            component={PhoneNumberScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
             name="Intro"
             component={Intro}
             options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PhoneNumberScreen"
+            component={PhoneNumberScreen}
+            options={{headerShown: true}}
+          />
+          <Stack.Screen
+            name="EmailScreen"
+            component={EmailScreen}
+            options={{headerShown: true}}
           />
         </Stack.Navigator>
       </NavigationContainer>
