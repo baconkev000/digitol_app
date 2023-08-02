@@ -6,11 +6,16 @@ import {IconButton} from 'react-native-paper';
 import React, {useState, useRef} from 'react';
 import PhoneNumber from 'libphonenumber-js';
 import PhoneInput from 'react-native-phone-number-input';
+import {useDispatch} from 'react-redux';
+import {UPDATEUSER} from '../../app/stores/userReducer';
+import ProgressBar from 'react-native-progress/Bar';
+import { PHONE_NUMBER_HELPER, PHONE_NUMBER_TEXT, ALERT_INVALID_PHONE_NUMBER_DESCRIPTION, ALERT_INVALID_PHONE_NUMBER, ALERT_ERROR_PHONE_NUMBER, ALERT_ERROR_PHONE_NUMBER_DESCRIPTION } from '../../constants/signup';
 
 const PhoneNumberScreen = ({navigation}) => {
   const insets = useSafeAreaInsets();
   const [phoneNumber, setPhoneNumber] = useState('');
   const phoneInput = useRef(null);
+  const dispatch = useDispatch();
 
   const handlePhoneNumberChange = inputValue => {
     setPhoneNumber(inputValue);
@@ -22,17 +27,19 @@ const PhoneNumberScreen = ({navigation}) => {
 
       if (parsedNumber && parsedNumber.isValid()) {
         // add phone number to user info
+        dispatch(UPDATEUSER({phone: parsedNumber.number}));
         navigation.navigate('EmailScreen');
       } else {
         Alert.alert(
-          'Invalid Phone Number',
-          'Please enter a valid phone number.',
+          ALERT_INVALID_PHONE_NUMBER,
+          ALERT_INVALID_PHONE_NUMBER_DESCRIPTION,
         );
       }
     } catch (error) {
+      console.log(error);
       Alert.alert(
-        'Error',
-        'An error occurred while validating the phone number.',
+        ALERT_ERROR_PHONE_NUMBER,
+        ALERT_ERROR_PHONE_NUMBER_DESCRIPTION,
       );
     }
   };
@@ -49,16 +56,25 @@ const PhoneNumberScreen = ({navigation}) => {
         mainStyles.Container,
         styles.container,
       ]}>
-      <View style={styles.innerContent}>
-        <AppText styles={styles.mainText} text={'LETS START YOUR'} />
+      <View style={mainStyles.innerContent}>
+        <View style={{paddingBottom: 30}}>
+          <ProgressBar
+            progress={0.25}
+            width={null}
+            borderColor="#21AFFF"
+            color="#21AFFF"
+            style={mainStyles.ProgressBar}
+          />
+        </View>
+        <AppText styles={styles.mainText} text={PHONE_NUMBER_TEXT[0]} />
         <AppText
           styles={[styles.mainText, mainStyles.AccentText]}
-          text={'DIGITOL JOURNEY'}
+          text={PHONE_NUMBER_TEXT[1]}
         />
         <View style={{paddingTop: 50}}>
           <AppText
             styles={{paddingBottom: 20}}
-            text={'Enter your mobile number'}
+            text={PHONE_NUMBER_HELPER}
           />
           <PhoneInput
             ref={phoneInput}
@@ -71,6 +87,7 @@ const PhoneNumberScreen = ({navigation}) => {
             textContainerStyle={styles.phoneInput}
             countryPickerButtonStyle={styles.contryPickerBtn}
             autoFocus
+            keyboardType="number-pad"
           />
         </View>
       </View>
@@ -93,9 +110,6 @@ const PhoneNumberScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
-  },
-  innerContent: {
-    marginTop: 100,
   },
   mainText: {
     fontSize: 30,

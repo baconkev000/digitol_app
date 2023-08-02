@@ -20,8 +20,8 @@ const IntroPage = ({navigation}) => {
           paddingLeft: insets.left,
           paddingRight: insets.right,
         },
-        styles.container,
         mainStyles.Container,
+        styles.container,
       ]}>
       <View style={styles.cardBorder} />
       <View style={{width: '100%'}}>

@@ -8,11 +8,12 @@ import Intro from './src/components/screens/IntroScreen';
 import AppText from './src/components/appText';
 import PhoneNumberScreen from './src/components/screens/PhoneNumberScreen';
 import EmailScreen from './src/components/screens/EmailScreen';
+import AboutYouScreen from './src/components/screens/AboutYouScreen';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const loggedIn = useSelector(state => state.loggedIn.value);
+  const loggedIn = useSelector(state => state.user.loggedIn);
   return !loggedIn ? (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -25,12 +26,17 @@ function App() {
           <Stack.Screen
             name="PhoneNumberScreen"
             component={PhoneNumberScreen}
-            options={{headerShown: true}}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="EmailScreen"
             component={EmailScreen}
-            options={{headerShown: true}}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="AboutYouScreen"
+            component={AboutYouScreen}
+            options={{headerShown: false}}
           />
         </Stack.Navigator>
       </NavigationContainer>

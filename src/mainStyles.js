@@ -4,6 +4,7 @@ export default StyleSheet.create({
     flex: 1,
     paddingStart: 25,
     paddingEnd: 25,
+    backgroundColor: 'white',
   },
   Text: {
     fontFamily: 'Inter',
@@ -13,4 +14,8 @@ export default StyleSheet.create({
   AccentText: {
     color: '#21AFFF',
   },
+  innerContent: {
+    marginTop: 100,
+  },
+  ProgressBar: {},
 });
