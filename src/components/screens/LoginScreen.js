@@ -1,0 +1,129 @@
+import {StyleSheet, View, Alert} from 'react-native';
+import mainStyles from '../../mainStyles';
+import AppText from '../appText';
+import {IconButton, TextInput} from 'react-native-paper';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {UPDATEUSER} from '../../app/stores/userReducer';
+import ScreenWrapper from '../ScreenWrapper';
+import {
+  LOGIN_MAIN_TEXT,
+  LOGIN_MAIN_TEXT_HELPER,
+} from '../../constants/signup.constants';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
+
+const LoginScreen = ({navigation}) => {
+  const [emailOrPhone, setEmailOrPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const handleInfoChange = (inputValue, stateSelector) => {
+    switch (stateSelector) {
+      case 'emailOrPhone':
+        setEmailOrPhone(inputValue);
+        break;
+      case 'password':
+        setPassword(inputValue);
+        break;
+      default:
+        //do nothing
+        break;
+    }
+  };
+
+  return (
+    <ScreenWrapper styles={styles.container}>
+      <View style={{paddingBottom: 30}} />
+      <View style={styles.mainTextContainer}>
+        <AppText styles={styles.mainText} text={LOGIN_MAIN_TEXT} />
+        <AppText styles={styles.mainTextHelper} text={LOGIN_MAIN_TEXT_HELPER} />
+      </View>
+      <View style={mainStyles.innerContent}>
+        <TextInput
+          label="Email or Phone"
+          value={emailOrPhone}
+          onChangeText={text => handleInfoChange(text, 'emailOrPhone')}
+          mode="outlined"
+          outlineStyle={mainStyles.inputOutline}
+          contentStyle={mainStyles.inputStyle}
+          selectionColor={ACCENT_COLOR}
+          outlineColor={ACCENT_COLOR}
+          activeOutlineColor={ACCENT_COLOR}
+          style={styles.textInputSpacing}
+        />
+        <TextInput
+          label="Password"
+          value={password}
+          onChangeText={text => handleInfoChange(text, 'password')}
+          mode="outlined"
+          outlineStyle={mainStyles.inputOutline}
+          contentStyle={mainStyles.inputStyle}
+          selectionColor={ACCENT_COLOR}
+          outlineColor={ACCENT_COLOR}
+          activeOutlineColor={ACCENT_COLOR}
+          style={styles.textInputSpacing}
+          secureTextEntry={true}
+        />
+      </View>
+
+      <View style={mainStyles.nextBtnContainer}>
+        <IconButton
+          icon="arrow-right"
+          style={styles.button}
+          iconColor={'white'}
+          size={20}
+          title="Validate"
+          onPress={() => {
+            //nothing
+          }}
+        />
+      </View>
+    </ScreenWrapper>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'space-between',
+  },
+  mainTextContainer: {
+    display: 'flex',
+    flexDirection: 'col',
+    alignItems: 'center',
+  },
+  mainText: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    paddingBottom: 5,
+  },
+  mainTextHelper: {
+    color: HELPER_COLOR,
+  },
+  checkBox: {
+    width: 20,
+    height: 20,
+    marginVertical: 20,
+  },
+  inputStyle: {
+    backgroundColor: 'black',
+  },
+  updatedContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingTop: 10,
+  },
+  updatedText: {paddingBottom: 10},
+  updatedHelpText: {
+    color: 'grey',
+    fontSize: 12,
+  },
+  updatedTextContainer: {
+    padding: 20,
+    paddingLeft: 15,
+  },
+  textInputSpacing: {
+    marginVertical: 5,
+  },
+});
+
+export default LoginScreen;

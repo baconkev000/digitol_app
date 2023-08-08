@@ -1,5 +1,4 @@
 import {StyleSheet, View, Alert} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import mainStyles from '../../mainStyles';
 import AppText from '../appText';
 import {IconButton, TextInput} from 'react-native-paper';
@@ -8,9 +7,18 @@ import {isValid, parse} from 'date-fns';
 import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
 import ProgressBar from 'react-native-progress/Bar';
+import ScreenWrapper from '../ScreenWrapper';
+import {
+  ALERT_ERROR_NAME_OR_DOB,
+  ALERT_ERROR_NAME_OR_DOB_DESCRIPTION,
+  ALERT_INVALID_NAME,
+  ALERT_INVALID_DOB,
+  ALERT_INVALID_NAME_DESCRIPTION,
+  ALERT_INVALID_DOB_DESCRIPTION,
+} from '../../constants/signup.constants';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 
 const AboutYouScreen = ({navigation}) => {
-  const insets = useSafeAreaInsets();
   const [firstName, setFirstName] = useState('');
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -97,100 +105,89 @@ const AboutYouScreen = ({navigation}) => {
             }),
           );
         } else {
-          Alert.alert('Invalid Name', 'Please enter a valid name.');
+          Alert.alert(ALERT_INVALID_NAME, ALERT_INVALID_NAME_DESCRIPTION);
         }
       } else {
-        Alert.alert(
-          'Invalid Birth Date',
-          'Please enter a valid birth date\n (dd/mm/yyy).',
-        );
+        Alert.alert(ALERT_INVALID_DOB, ALERT_INVALID_DOB_DESCRIPTION);
       }
     } catch (error) {
-      Alert.alert('Error', 'An error occurred while validating the email.');
+      Alert.alert(ALERT_ERROR_NAME_OR_DOB, ALERT_ERROR_NAME_OR_DOB_DESCRIPTION);
     }
   };
   return (
-    <View
-      style={[
-        {
-          // Paddings to handle safe area
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-        mainStyles.Container,
-        styles.container,
-      ]}>
-      <View style={mainStyles.innerContent}>
-        <View style={{paddingBottom: 30}}>
-          <ProgressBar
-            progress={0.75}
-            width={null}
-            borderColor="#21AFFF"
-            color="#21AFFF"
-            style={mainStyles.ProgressBar}
-          />
-        </View>
-        <View style={styles.mainTextContainer}>
-          <AppText styles={styles.mainText} text={'ABOUT '} />
-          <AppText
-            styles={[styles.mainText, mainStyles.AccentText]}
-            text={'YOU'}
-          />
-        </View>
-        <View style={{paddingTop: 50}}>
-          <TextInput
-            label="First Name"
-            value={firstName}
-            onChangeText={text => handleInfoChange(text, 'first')}
-            mode="outlined"
-            outlineStyle={styles.inputOutline}
-            contentStyle={styles.inputStyle}
-            selectionColor="#21AFFF"
-            outlineColor="#21AFFF"
-            activeOutlineColor="#21AFFF"
-          />
-          <TextInput
-            label="Middle Name (optional)"
-            value={middleName}
-            onChangeText={text => handleInfoChange(text, 'middle')}
-            mode="outlined"
-            outlineStyle={styles.inputOutline}
-            contentStyle={styles.inputStyle}
-            selectionColor="#21AFFF"
-            outlineColor="#21AFFF"
-            activeOutlineColor="#21AFFF"
-          />
-          <TextInput
-            label="Last Name"
-            value={lastName}
-            onChangeText={text => handleInfoChange(text, 'last')}
-            mode="outlined"
-            outlineStyle={styles.inputOutline}
-            contentStyle={styles.inputStyle}
-            selectionColor="#21AFFF"
-            outlineColor="#21AFFF"
-            activeOutlineColor="#21AFFF"
-          />
-          <TextInput
-            label="Date of Birth"
-            value={DOB}
-            onChangeText={text => handleInfoChange(text, 'dob')}
-            mode="outlined"
-            outlineStyle={styles.inputOutline}
-            contentStyle={styles.inputStyle}
-            selectionColor="#21AFFF"
-            outlineColor="#21AFFF"
-            activeOutlineColor="#21AFFF"
-            placeholder="dd/mm/yyyy"
-            placeholderTextColor={{color: 'lightgrey'}}
-            maxLength={10}
-            keyboardType="number-pad"
-          />
-        </View>
+    <ScreenWrapper styles={{justifyContent: 'space-between'}}>
+      <View style={{paddingBottom: 30}}>
+        <ProgressBar
+          progress={0.75}
+          width={null}
+          borderColor="#21AFFF"
+          color="#21AFFF"
+          style={mainStyles.ProgressBar}
+        />
       </View>
-      <View style={styles.nextBtnContainer}>
+      <View style={styles.mainTextContainer}>
+        <AppText styles={styles.mainText} text={'ABOUT '} />
+        <AppText
+          styles={[styles.mainText, mainStyles.AccentText]}
+          text={'YOU'}
+        />
+      </View>
+      <View style={mainStyles.innerContent}>
+        <TextInput
+          label="First Name"
+          value={firstName}
+          onChangeText={text => handleInfoChange(text, 'first')}
+          mode="outlined"
+          outlineStyle={mainStyles.inputOutline}
+          contentStyle={mainStyles.inputStyle}
+          selectionColor="#21AFFF"
+          outlineColor="#21AFFF"
+          activeOutlineColor="#21AFFF"
+          style={styles.textInputSpacing}
+        />
+        <TextInput
+          label="Middle Name (optional)"
+          value={middleName}
+          onChangeText={text => handleInfoChange(text, 'middle')}
+          mode="outlined"
+          outlineStyle={mainStyles.inputOutline}
+          contentStyle={mainStyles.inputStyle}
+          selectionColor="#21AFFF"
+          outlineColor="#21AFFF"
+          activeOutlineColor="#21AFFF"
+          style={styles.textInputSpacing}
+        />
+        <TextInput
+          label="Last Name"
+          value={lastName}
+          onChangeText={text => handleInfoChange(text, 'last')}
+          mode="outlined"
+          outlineStyle={mainStyles.inputOutline}
+          contentStyle={mainStyles.inputStyle}
+          selectionColor={ACCENT_COLOR}
+          outlineColor={ACCENT_COLOR}
+          activeOutlineColor={ACCENT_COLOR}
+          style={styles.textInputSpacing}
+        />
+        <TextInput
+          label="Date of Birth"
+          value={DOB}
+          onChangeText={text => handleInfoChange(text, 'dob')}
+          mode="outlined"
+          outlineStyle={mainStyles.inputOutline}
+          contentStyle={mainStyles.inputStyle}
+          selectionColor={ACCENT_COLOR}
+          outlineColor={ACCENT_COLOR}
+          activeOutlineColor={ACCENT_COLOR}
+          placeholder="dd/mm/yyyy"
+          placeholderTextColor={{color: HELPER_COLOR}}
+          maxLength={10}
+          keyboardType="number-pad"
+          style={styles.textInputSpacing}
+        />
+      </View>
+
+      <View style={mainStyles.nextBtnContainer}>
         <IconButton
           icon="arrow-right"
           style={styles.button}
@@ -202,7 +199,7 @@ const AboutYouScreen = ({navigation}) => {
           }}
         />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 };
 
@@ -229,23 +226,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   button: {
-    backgroundColor: '#21AFFF',
+    backgroundColor: ACCENT_COLOR,
     width: '20%',
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
-  },
-  inputOutline: {
-    borderRadius: 15,
-    borderColor: 'transparent',
-  },
-  inputStyle: {
-    backgroundColor: '#FAFAFA',
-    borderColor: '#D9D9D9',
-    borderWidth: 2,
-    borderRadius: 15,
-    marginVertical: 5,
   },
   updatedContainer: {
     display: 'flex',
@@ -254,12 +240,15 @@ const styles = StyleSheet.create({
   },
   updatedText: {paddingBottom: 10},
   updatedHelpText: {
-    color: 'grey',
+    color: HELPER_COLOR,
     fontSize: 12,
   },
   updatedTextContainer: {
     padding: 20,
     paddingLeft: 15,
+  },
+  textInputSpacing: {
+    marginVertical: 5,
   },
 });
 

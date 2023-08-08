@@ -1,10 +1,12 @@
 import {StyleSheet} from 'react-native';
+import {ACCENT_COLOR, HELPER_COLOR} from './constants/style.constants';
+
 export default StyleSheet.create({
   Container: {
     flex: 1,
     paddingStart: 25,
     paddingEnd: 25,
-    backgroundColor: 'white',
+    width: '100%',
   },
   Text: {
     fontFamily: 'Inter',
@@ -12,10 +14,36 @@ export default StyleSheet.create({
     fontWeight: '500',
   },
   AccentText: {
-    color: '#21AFFF',
+    color: ACCENT_COLOR,
   },
   innerContent: {
-    marginTop: 100,
+    flex: 1,
+    width: '100%',
   },
-  ProgressBar: {},
+  wrapperContent: {
+    flex: 1,
+    marginTop: 50,
+    width: '100%',
+  },
+  inputOutline: {
+    borderRadius: 15,
+    borderColor: 'transparent',
+  },
+  inputStyle: {
+    borderColor: HELPER_COLOR,
+    borderWidth: 2,
+    borderRadius: 15,
+  },
+  nextBtnContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+  button: {
+    backgroundColor: ACCENT_COLOR,
+    width: '20%',
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+  },
 });

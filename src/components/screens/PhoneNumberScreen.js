@@ -1,5 +1,4 @@
 import {StyleSheet, View, Alert} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import mainStyles from '../../mainStyles';
 import AppText from '../appText';
 import {IconButton} from 'react-native-paper';
@@ -9,10 +8,18 @@ import PhoneInput from 'react-native-phone-number-input';
 import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
 import ProgressBar from 'react-native-progress/Bar';
-import { PHONE_NUMBER_HELPER, PHONE_NUMBER_TEXT, ALERT_INVALID_PHONE_NUMBER_DESCRIPTION, ALERT_INVALID_PHONE_NUMBER, ALERT_ERROR_PHONE_NUMBER, ALERT_ERROR_PHONE_NUMBER_DESCRIPTION } from '../../constants/signup';
+import {
+  PHONE_NUMBER_HELPER,
+  PHONE_NUMBER_TEXT,
+  ALERT_INVALID_PHONE_NUMBER_DESCRIPTION,
+  ALERT_INVALID_PHONE_NUMBER,
+  ALERT_ERROR_PHONE_NUMBER,
+  ALERT_ERROR_PHONE_NUMBER_DESCRIPTION,
+} from '../../constants/signup.constants';
+import ScreenWrapper from '../ScreenWrapper';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 
 const PhoneNumberScreen = ({navigation}) => {
-  const insets = useSafeAreaInsets();
   const [phoneNumber, setPhoneNumber] = useState('');
   const phoneInput = useRef(null);
   const dispatch = useDispatch();
@@ -44,18 +51,7 @@ const PhoneNumberScreen = ({navigation}) => {
     }
   };
   return (
-    <View
-      style={[
-        {
-          // Paddings to handle safe area
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-        mainStyles.Container,
-        styles.container,
-      ]}>
+    <ScreenWrapper styles={styles.container}>
       <View style={mainStyles.innerContent}>
         <View style={{paddingBottom: 30}}>
           <ProgressBar
@@ -72,10 +68,7 @@ const PhoneNumberScreen = ({navigation}) => {
           text={PHONE_NUMBER_TEXT[1]}
         />
         <View style={{paddingTop: 50}}>
-          <AppText
-            styles={{paddingBottom: 20}}
-            text={PHONE_NUMBER_HELPER}
-          />
+          <AppText styles={{paddingBottom: 20}} text={PHONE_NUMBER_HELPER} />
           <PhoneInput
             ref={phoneInput}
             defaultValue={phoneNumber}
@@ -91,7 +84,7 @@ const PhoneNumberScreen = ({navigation}) => {
           />
         </View>
       </View>
-      <View style={styles.nextBtnContainer}>
+      <View style={mainStyles.nextBtnContainer}>
         <IconButton
           icon="arrow-right"
           style={styles.button}
@@ -103,7 +96,7 @@ const PhoneNumberScreen = ({navigation}) => {
           }}
         />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 };
 
@@ -116,17 +109,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingBottom: 5,
   },
-  invalidMessage: {
-    fontSize: 12,
-    color: '#e64e4c',
-    paddingTop: 5,
-  },
   nextBtnContainer: {
     display: 'flex',
     alignItems: 'flex-end',
   },
   button: {
-    backgroundColor: '#21AFFF',
+    backgroundColor: ACCENT_COLOR,
     width: '20%',
     color: 'white',
     justifyContent: 'center',
@@ -136,7 +124,7 @@ const styles = StyleSheet.create({
   phoneInputContainer: {
     width: '100%',
     borderRadius: 20,
-    borderColor: '#D9D9D9',
+    borderColor: HELPER_COLOR,
     borderWidth: 3,
   },
   phoneInput: {

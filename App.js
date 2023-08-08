@@ -9,6 +9,7 @@ import AppText from './src/components/appText';
 import PhoneNumberScreen from './src/components/screens/PhoneNumberScreen';
 import EmailScreen from './src/components/screens/EmailScreen';
 import AboutYouScreen from './src/components/screens/AboutYouScreen';
+import LoginScreen from './src/components/screens/LoginScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,11 @@ function App() {
           <Stack.Screen
             name="Intro"
             component={Intro}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="LoginScreen"
+            component={LoginScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen

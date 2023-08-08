@@ -1,5 +1,4 @@
 import {StyleSheet, View, Alert} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import mainStyles from '../../mainStyles';
 import AppText from '../appText';
 import {IconButton, TextInput} from 'react-native-paper';
@@ -8,9 +7,17 @@ import CheckBox from '@react-native-community/checkbox';
 import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
 import ProgressBar from 'react-native-progress/Bar';
+import {
+  ALERT_ERROR_EMAIL_DESCRIPTION,
+  ALERT_INVALID_EMAIL_DESCRIPTION,
+  ALERT_INVALID_EMAIL,
+  ALERT_ERROR_EMAIL,
+  EMAIL_TEXT,
+} from '../../constants/signup.constants';
+import ScreenWrapper from '../ScreenWrapper';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 
 const EmailScreen = ({navigation}) => {
-  const insets = useSafeAreaInsets();
   const [email, setEmail] = useState('');
   const [checked, setChecked] = React.useState(true);
   const dispatch = useDispatch();
@@ -25,25 +32,14 @@ const EmailScreen = ({navigation}) => {
         dispatch(UPDATEUSER({email: email, keepUpdated: checked}));
         navigation.navigate('AboutYouScreen');
       } else {
-        Alert.alert('Invalid Email', 'Please enter a valid email.');
+        Alert.alert(ALERT_INVALID_EMAIL, ALERT_INVALID_EMAIL_DESCRIPTION);
       }
     } catch (error) {
-      Alert.alert('Error', 'An error occurred while validating the email.');
+      Alert.alert(ALERT_ERROR_EMAIL, ALERT_ERROR_EMAIL_DESCRIPTION);
     }
   };
   return (
-    <View
-      style={[
-        {
-          // Paddings to handle safe area
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-        mainStyles.Container,
-        styles.container,
-      ]}>
+    <ScreenWrapper styles={{justifyContent: 'space-between'}}>
       <View style={mainStyles.innerContent}>
         <View style={{paddingBottom: 30}}>
           <ProgressBar
@@ -55,10 +51,10 @@ const EmailScreen = ({navigation}) => {
           />
         </View>
         <View style={styles.mainTextContainer}>
-          <AppText styles={styles.mainText} text={'YOUR EMAIL '} />
+          <AppText styles={styles.mainText} text={EMAIL_TEXT[0]} />
           <AppText
             styles={[styles.mainText, mainStyles.AccentText]}
-            text={'IS'}
+            text={EMAIL_TEXT[1]}
           />
         </View>
         <View style={{paddingTop: 50}}>
@@ -67,8 +63,8 @@ const EmailScreen = ({navigation}) => {
             value={email}
             onChangeText={text => handleEmailChange(text)}
             mode="outlined"
-            outlineStyle={styles.inputOutline}
-            contentStyle={styles.inputStyle}
+            outlineStyle={mainStyles.inputOutline}
+            contentStyle={mainStyles.inputStyle}
             selectionColor="#21AFFF"
             outlineColor="#21AFFF"
             activeOutlineColor="#21AFFF"
@@ -95,7 +91,7 @@ const EmailScreen = ({navigation}) => {
           </View>
         </View>
       </View>
-      <View style={styles.nextBtnContainer}>
+      <View style={mainStyles.nextBtnContainer}>
         <IconButton
           icon="arrow-right"
           style={styles.button}
@@ -107,7 +103,7 @@ const EmailScreen = ({navigation}) => {
           }}
         />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 };
 
@@ -117,9 +113,8 @@ const styles = StyleSheet.create({
   },
   mainTextContainer: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'col',
   },
-
   mainText: {
     fontSize: 40,
     fontWeight: 'bold',
@@ -135,21 +130,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   button: {
-    backgroundColor: '#21AFFF',
+    backgroundColor: ACCENT_COLOR,
     width: '20%',
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 15,
-  },
-  inputOutline: {
-    borderRadius: 15,
-    borderColor: 'transparent',
-  },
-  inputStyle: {
-    backgroundColor: '#FAFAFA',
-    borderColor: '#D9D9D9',
-    borderWidth: 2,
     borderRadius: 15,
   },
   updatedContainer: {
@@ -159,7 +144,7 @@ const styles = StyleSheet.create({
   },
   updatedText: {paddingBottom: 10},
   updatedHelpText: {
-    color: 'grey',
+    color: HELPER_COLOR,
     fontSize: 12,
   },
   updatedTextContainer: {

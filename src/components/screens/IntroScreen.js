@@ -1,73 +1,103 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import React from 'react';
 import {Button} from 'react-native-paper';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import mainStyles from '../../mainStyles';
 import AppText from '../appText';
-
+import {INTRO_TEXT, INTRO_TEXT_HELPER} from '../../constants/signup.constants';
+import ScreenWrapper from '../ScreenWrapper';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 const IntroPage = ({navigation}) => {
-  const insets = useSafeAreaInsets();
-
   return (
-    <View
-      style={[
-        {
-          alignItems: 'center',
-
-          // Paddings to handle safe area
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-        mainStyles.Container,
-        styles.container,
-      ]}>
-      <View style={styles.cardBorder} />
-      <View style={{width: '100%'}}>
-        <AppText
-          styles={styles.introText}
-          text={'Help You Digitize The Future'}
+    <ScreenWrapper>
+      <View style={styles.container}>
+        <Image
+          source={require('../../../assets/digitol_logo.png')}
+          style={styles.logo}
         />
-        <Button
-          style={styles.startButton}
-          mode="contained"
-          onPress={() => navigation.navigate('PhoneNumberScreen')}>
-          <AppText styles={styles.startButtonText} text={'Get Started'} />
-        </Button>
+        <View style={{width: '100%', alignItems: 'center'}}>
+          <View style={styles.textContainer}>
+            <AppText
+              styles={[styles.introText, styles.allText]}
+              text={INTRO_TEXT}
+            />
+            <AppText
+              styles={[styles.introTextHelper, styles.allText]}
+              text={INTRO_TEXT_HELPER}
+            />
+          </View>
+          <View style={styles.doubleButtonContainer}>
+            <Button
+              style={[styles.registerButton, styles.button]}
+              mode="contained"
+              onPress={() => navigation.navigate('PhoneNumberScreen')}>
+              <AppText styles={styles.registerButtonText} text={'Register'} />
+            </Button>
+            <Button
+              style={[styles.signInButton, styles.button]}
+              mode="contained"
+              onPress={() => navigation.navigate('LoginScreen')}>
+              <AppText styles={styles.signInButtonText} text={'Sign In'} />
+            </Button>
+          </View>
+        </View>
       </View>
-    </View>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(0,0,0,0.87)',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flex: 1,
   },
-  cardBorder: {
-    width: '90%',
-    borderWidth: 5,
-    borderColor: 'white',
-    borderRadius: 40,
-    height: 225,
-    marginTop: 100,
+  logo: {
+    height: 300,
+    width: 300,
+  },
+  textContainer: {
+    width: '75%',
+    paddingBottom: 75,
+  },
+  allText: {
+    textAlign: 'center',
   },
   introText: {
-    color: 'white',
-    fontSize: 55,
-    marginBottom: 75,
+    color: 'black',
+    fontSize: 40,
+    paddingBottom: 10,
   },
-  startButton: {
-    backgroundColor: '#21AFFF',
+  introTextHelper: {
+    color: HELPER_COLOR,
+    fontSize: 15,
+  },
+  doubleButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    backgroundColor: '#F5F5F5',
+    borderRadius: 15,
+    marginBottom: 25,
+  },
+  button: {
+    width: '50%',
+  },
+  registerButton: {
+    backgroundColor: ACCENT_COLOR,
     width: '100%',
     borderRadius: 15,
     padding: 15,
-    marginBottom: 15,
   },
-  startButtonText: {
+  registerButtonText: {
     color: 'white',
+  },
+  signInButton: {
+    backgroundColor: '#F5F5F5',
+    width: '100%',
+    borderRadius: 15,
+    padding: 15,
+  },
+  signInButtonText: {
+    color: 'black',
   },
 });
 
