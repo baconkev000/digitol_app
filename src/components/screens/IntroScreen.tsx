@@ -5,7 +5,7 @@ import AppText from '../appText';
 import {INTRO_TEXT, INTRO_TEXT_HELPER} from '../../constants/signup.constants';
 import ScreenWrapper from '../ScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
-const IntroPage = ({navigation}) => {
+const IntroPage = ({navigation}: any) => {
   return (
     <ScreenWrapper>
       <View style={styles.container}>

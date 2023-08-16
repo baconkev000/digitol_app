@@ -12,12 +12,12 @@ import {
 } from '../../constants/signup.constants';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({navigation}: any) => {
   const [emailOrPhone, setEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  const handleInfoChange = (inputValue, stateSelector) => {
+  const handleInfoChange = (inputValue: string, stateSelector: string) => {
     switch (stateSelector) {
       case 'emailOrPhone':
         setEmailOrPhone(inputValue);
@@ -65,10 +65,11 @@ const LoginScreen = ({navigation}) => {
           secureTextEntry={true}
         />
         <Button
+          // @ts-expect-error TS(2339): Property 'registerButton' does not exist on type '... Remove this comment to see the full error message
           style={[styles.registerButton, styles.button]}
           mode="contained"
           onPress={() => navigation.navigate('PhoneNumberScreen')}>
-          <AppText styles={styles.registerButtonText} text={'Register'} />
+          <AppText text={'Register'} />
         </Button>
       </View>
 
@@ -78,6 +79,7 @@ const LoginScreen = ({navigation}) => {
           style={styles.button}
           iconColor={'white'}
           size={20}
+          // @ts-expect-error TS(2322): Type '{ icon: string; style: ViewStyle | TextStyle... Remove this comment to see the full error message
           title="Validate"
           onPress={() => {
             //nothing
@@ -94,6 +96,7 @@ const styles = StyleSheet.create({
   },
   mainTextContainer: {
     display: 'flex',
+    // @ts-expect-error TS(2322): Type '"col"' is not assignable to type '"row" | "c... Remove this comment to see the full error message
     flexDirection: 'col',
     alignItems: 'center',
   },

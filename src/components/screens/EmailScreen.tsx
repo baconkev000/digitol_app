@@ -4,8 +4,9 @@ import AppText from '../appText';
 import {IconButton, TextInput} from 'react-native-paper';
 import React, {useState} from 'react';
 import CheckBox from '@react-native-community/checkbox';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ProgressBar from 'react-native-progress/Bar';
 import {
   ALERT_ERROR_EMAIL_DESCRIPTION,
@@ -17,11 +18,11 @@ import {
 import ScreenWrapper from '../ScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 
-const EmailScreen = ({navigation}) => {
+const EmailScreen = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [checked, setChecked] = React.useState(true);
   const dispatch = useDispatch();
-  const handleEmailChange = inputValue => {
+  const handleEmailChange = (inputValue: any) => {
     setEmail(inputValue);
   };
 
@@ -47,6 +48,7 @@ const EmailScreen = ({navigation}) => {
             width={null}
             borderColor="#21AFFF"
             color="#21AFFF"
+            // @ts-expect-error TS(2339): Property 'ProgressBar' does not exist on type '{ C... Remove this comment to see the full error message
             style={mainStyles.ProgressBar}
           />
         </View>
@@ -69,6 +71,7 @@ const EmailScreen = ({navigation}) => {
             outlineColor="#21AFFF"
             activeOutlineColor="#21AFFF"
             placeholder="team@ondigitol.com"
+            // @ts-expect-error TS(2322): Type '{ color: string; }' is not assignable to typ... Remove this comment to see the full error message
             placeholderTextColor={{color: 'lightgrey'}}
           />
         </View>
@@ -97,6 +100,7 @@ const EmailScreen = ({navigation}) => {
           style={styles.button}
           iconColor={'white'}
           size={20}
+          // @ts-expect-error TS(2322): Type '{ icon: string; style: ViewStyle | TextStyle... Remove this comment to see the full error message
           title="Validate"
           onPress={() => {
             handleValidateEmail();
@@ -113,6 +117,7 @@ const styles = StyleSheet.create({
   },
   mainTextContainer: {
     display: 'flex',
+    // @ts-expect-error TS(2322): Type '"col"' is not assignable to type '"row" | "c... Remove this comment to see the full error message
     flexDirection: 'col',
   },
   mainText: {

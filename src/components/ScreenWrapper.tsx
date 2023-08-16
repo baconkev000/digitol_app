@@ -3,7 +3,7 @@ import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import mainStyles from '../mainStyles';
 
-const ScreenWrapper = props => {
+const ScreenWrapper = (props: any) => {
   const insets = useSafeAreaInsets();
 
   return (

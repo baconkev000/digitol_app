@@ -7,6 +7,7 @@ import PhoneNumber from 'libphonenumber-js';
 import PhoneInput from 'react-native-phone-number-input';
 import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ProgressBar from 'react-native-progress/Bar';
 import {
   PHONE_NUMBER_HELPER,
@@ -19,17 +20,18 @@ import {
 import ScreenWrapper from '../ScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 
-const PhoneNumberScreen = ({navigation}) => {
+const PhoneNumberScreen = ({navigation}: any) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const phoneInput = useRef(null);
   const dispatch = useDispatch();
 
-  const handlePhoneNumberChange = inputValue => {
+  const handlePhoneNumberChange = (inputValue: string) => {
     setPhoneNumber(inputValue);
   };
 
   const handleValidatePhoneNumber = () => {
     try {
+      // @ts-expect-error TS(2339): Property 'parsePhoneNumberFromString' does not exi... Remove this comment to see the full error message
       const parsedNumber = PhoneNumber.parsePhoneNumberFromString(phoneNumber);
 
       if (parsedNumber && parsedNumber.isValid()) {
@@ -59,7 +61,6 @@ const PhoneNumberScreen = ({navigation}) => {
             width={null}
             borderColor="#21AFFF"
             color="#21AFFF"
-            style={mainStyles.ProgressBar}
           />
         </View>
         <AppText styles={styles.mainText} text={PHONE_NUMBER_TEXT[0]} />
@@ -80,6 +81,7 @@ const PhoneNumberScreen = ({navigation}) => {
             textContainerStyle={styles.phoneInput}
             countryPickerButtonStyle={styles.contryPickerBtn}
             autoFocus
+            // @ts-expect-error TS(2322): Type '{ ref: MutableRefObject<null>; defaultValue:... Remove this comment to see the full error message
             keyboardType="number-pad"
           />
         </View>
@@ -90,7 +92,6 @@ const PhoneNumberScreen = ({navigation}) => {
           style={styles.button}
           iconColor={'white'}
           size={20}
-          title="Validate"
           onPress={() => {
             handleValidatePhoneNumber();
           }}

@@ -6,7 +6,7 @@ import {ALL_DONE} from '../../constants/signup.constants';
 import ScreenWrapper from '../ScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 
-const LoginFinishScreen = ({navigation}) => {
+const LoginFinishScreen = ({navigation}: any) => {
   return (
     <ScreenWrapper>
       <View style={styles.container}>

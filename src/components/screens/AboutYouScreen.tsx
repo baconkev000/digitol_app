@@ -6,6 +6,7 @@ import React, {useState} from 'react';
 import {isValid, parse} from 'date-fns';
 import {useDispatch, useSelector} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ProgressBar from 'react-native-progress/Bar';
 import ScreenWrapper from '../ScreenWrapper';
 import {
@@ -19,14 +20,16 @@ import {
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 import uuid from 'react-native-uuid';
 import {useRealm} from '@realm/react';
+// @ts-expect-error TS(2614): Module '"../../app/stores/userReducer"' has no exp... Remove this comment to see the full error message
 import {selectUser} from '../../app/stores/userReducer';
 
-const AboutYouScreen = ({navigation}) => {
+const AboutYouScreen = ({navigation}: any) => {
   const [firstName, setFirstName] = useState('');
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
   const [DOB, setDOBName] = useState('');
   const dispatch = useDispatch();
+  // @ts-expect-error TS(2571): Object is of type 'unknown'.
   const user = useSelector(state => state.user);
   const realm = useRealm();
 
@@ -46,7 +49,7 @@ const AboutYouScreen = ({navigation}) => {
     });
   };
 
-  const handleInfoChange = (inputValue, stateSelector) => {
+  const handleInfoChange = (inputValue: string, stateSelector: string) => {
     switch (stateSelector) {
       case 'first':
         setFirstName(inputValue);
@@ -109,7 +112,7 @@ const AboutYouScreen = ({navigation}) => {
 
     return true;
   };
-  const isEmptyOrSpaces = str => {
+  const isEmptyOrSpaces = (str: string) => {
     return str === null || str.match(/^ *$/) !== null;
   };
 
@@ -119,13 +122,14 @@ const AboutYouScreen = ({navigation}) => {
         if (!isEmptyOrSpaces(firstName) && !isEmptyOrSpaces(lastName)) {
           dispatch(
             UPDATEUSER({
-              userID: uuid.v4(),
+              userID: uuid.v4().toString(),
               firstName: firstName,
               middleName: middleName,
               lastName: lastName,
               dob: DOB,
             }),
-          ).then(() => handleAddUser());
+          )
+          handleAddUser();
         } else {
           Alert.alert(ALERT_INVALID_NAME, ALERT_INVALID_NAME_DESCRIPTION);
         }
@@ -144,7 +148,6 @@ const AboutYouScreen = ({navigation}) => {
           width={null}
           borderColor="#21AFFF"
           color="#21AFFF"
-          style={mainStyles.ProgressBar}
         />
       </View>
       <View style={styles.mainTextContainer}>
@@ -202,7 +205,6 @@ const AboutYouScreen = ({navigation}) => {
           outlineColor={ACCENT_COLOR}
           activeOutlineColor={ACCENT_COLOR}
           placeholder="dd/mm/yyyy"
-          placeholderTextColor={{color: HELPER_COLOR}}
           maxLength={10}
           keyboardType="number-pad"
           style={styles.textInputSpacing}
@@ -215,7 +217,6 @@ const AboutYouScreen = ({navigation}) => {
           style={styles.button}
           iconColor={'white'}
           size={20}
-          title="Validate"
           onPress={() => {
             handleValidateForm();
           }}

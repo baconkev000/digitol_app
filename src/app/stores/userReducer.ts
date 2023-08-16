@@ -1,4 +1,5 @@
 import {createSelector, createSlice} from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit'
 
 export const userSlice = createSlice({
   name: 'user',
@@ -20,7 +21,7 @@ export const userSlice = createSlice({
      * @param {state} state
      * @param {User} action
      */
-    UPDATEUSER(state, action) {
+    UPDATEUSER: (state: any, action: PayloadAction<any>) => {
       for (let prop in action.payload) {
         if (state.hasOwnProperty(prop)) {
           state[prop] = action.payload[prop];

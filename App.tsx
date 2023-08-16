@@ -11,10 +11,11 @@ import EmailScreen from './src/components/screens/EmailScreen';
 import AboutYouScreen from './src/components/screens/AboutYouScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
 import LoginFinishScreen from './src/components/screens/LoginFinishScreen';
+import { RootState } from './src/app/stores/store';
 
 const Stack = createNativeStackNavigator();
 function App() {
-  const loggedIn = useSelector(state => state.user.loggedIn);
+  const loggedIn = useSelector((state: RootState) => state.user.loggedIn);
   // need to check weather or not a user is already logged in
   // react-native-keychain to manage session state
   // check if user is logged in
