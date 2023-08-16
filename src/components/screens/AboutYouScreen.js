@@ -4,7 +4,7 @@ import AppText from '../appText';
 import {IconButton, TextInput} from 'react-native-paper';
 import React, {useState} from 'react';
 import {isValid, parse} from 'date-fns';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
 import ProgressBar from 'react-native-progress/Bar';
 import ScreenWrapper from '../ScreenWrapper';
@@ -17,6 +17,9 @@ import {
   ALERT_INVALID_DOB_DESCRIPTION,
 } from '../../constants/signup.constants';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
+import uuid from 'react-native-uuid';
+import {useRealm} from '@realm/react';
+import {selectUser} from '../../app/stores/userReducer';
 
 const AboutYouScreen = ({navigation}) => {
   const [firstName, setFirstName] = useState('');
@@ -24,6 +27,24 @@ const AboutYouScreen = ({navigation}) => {
   const [lastName, setLastName] = useState('');
   const [DOB, setDOBName] = useState('');
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+  const realm = useRealm();
+
+  const handleAddUser = () => {
+    realm.write(() => {
+      realm.create('User', {
+        _id: user.userID,
+        first_name: user.firstName,
+        middle_name: user.middleName,
+        last_name: user.lastName,
+        dob: user.dob,
+        phone: user.phone,
+        email: user.email,
+        keep_updated: user.keepUdated,
+        logged_in: true,
+      });
+    });
+  };
 
   const handleInfoChange = (inputValue, stateSelector) => {
     switch (stateSelector) {
@@ -98,12 +119,13 @@ const AboutYouScreen = ({navigation}) => {
         if (!isEmptyOrSpaces(firstName) && !isEmptyOrSpaces(lastName)) {
           dispatch(
             UPDATEUSER({
+              userID: uuid.v4(),
               firstName: firstName,
               middleName: middleName,
               lastName: lastName,
               dob: DOB,
             }),
-          );
+          ).then(() => handleAddUser());
         } else {
           Alert.alert(ALERT_INVALID_NAME, ALERT_INVALID_NAME_DESCRIPTION);
         }

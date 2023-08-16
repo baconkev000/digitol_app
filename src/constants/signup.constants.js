@@ -34,3 +34,6 @@ export const ALERT_INVALID_DOB_DESCRIPTION =
 export const ALERT_ERROR_NAME_OR_DOB = 'Error';
 export const ALERT_ERROR_NAME_OR_DOB_DESCRIPTION =
   'An error occurred while validating a name or DOB.';
+
+//login finished screen
+export const ALL_DONE = 'All Done!';

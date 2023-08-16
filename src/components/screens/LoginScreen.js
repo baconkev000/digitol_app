@@ -1,7 +1,7 @@
 import {StyleSheet, View, Alert} from 'react-native';
 import mainStyles from '../../mainStyles';
 import AppText from '../appText';
-import {IconButton, TextInput} from 'react-native-paper';
+import {IconButton, TextInput, Button} from 'react-native-paper';
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
@@ -38,7 +38,7 @@ const LoginScreen = ({navigation}) => {
         <AppText styles={styles.mainText} text={LOGIN_MAIN_TEXT} />
         <AppText styles={styles.mainTextHelper} text={LOGIN_MAIN_TEXT_HELPER} />
       </View>
-      <View style={mainStyles.innerContent}>
+      <View style={(mainStyles.innerContent, styles.innerContent)}>
         <TextInput
           label="Email or Phone"
           value={emailOrPhone}
@@ -64,6 +64,12 @@ const LoginScreen = ({navigation}) => {
           style={styles.textInputSpacing}
           secureTextEntry={true}
         />
+        <Button
+          style={[styles.registerButton, styles.button]}
+          mode="contained"
+          onPress={() => navigation.navigate('PhoneNumberScreen')}>
+          <AppText styles={styles.registerButtonText} text={'Register'} />
+        </Button>
       </View>
 
       <View style={mainStyles.nextBtnContainer}>
@@ -96,8 +102,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingBottom: 5,
   },
+  innerContent: {
+    alignItems: 'center',
+    flex: 1,
+    width: '100%',
+  },
   mainTextHelper: {
     color: HELPER_COLOR,
+  },
+  button: {
+    backgroundColor: ACCENT_COLOR,
+    width: '80%',
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
   },
   checkBox: {
     width: 20,

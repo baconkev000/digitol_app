@@ -10,11 +10,15 @@ import PhoneNumberScreen from './src/components/screens/PhoneNumberScreen';
 import EmailScreen from './src/components/screens/EmailScreen';
 import AboutYouScreen from './src/components/screens/AboutYouScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
+import LoginFinishScreen from './src/components/screens/LoginFinishScreen';
 
 const Stack = createNativeStackNavigator();
-
 function App() {
   const loggedIn = useSelector(state => state.user.loggedIn);
+  // need to check weather or not a user is already logged in
+  // react-native-keychain to manage session state
+  // check if user is logged in
+
   return !loggedIn ? (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -42,6 +46,11 @@ function App() {
           <Stack.Screen
             name="AboutYouScreen"
             component={AboutYouScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="LoginFinishScreen"
+            component={LoginFinishScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

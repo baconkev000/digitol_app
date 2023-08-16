@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSelector, createSlice} from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -16,6 +16,10 @@ export const userSlice = createSlice({
     LOGINOROUT: state => {
       state.loggedIn = !state.loggedIn;
     },
+    /**
+     * @param {state} state
+     * @param {User} action
+     */
     UPDATEUSER(state, action) {
       for (let prop in action.payload) {
         if (state.hasOwnProperty(prop)) {
