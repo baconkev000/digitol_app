@@ -46,4 +46,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderRadius: 15,
   },
+  messageStyle: {
+    color: '#ff5959',
+    fontSize: 10,
+  },
 });

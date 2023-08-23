@@ -35,5 +35,8 @@ export const ALERT_ERROR_NAME_OR_DOB = 'Error';
 export const ALERT_ERROR_NAME_OR_DOB_DESCRIPTION =
   'An error occurred while validating a name or DOB.';
 
+//password screen
+export const CHOOSE_PASSWORD = ['Choose', ' Password'];
+
 //login finished screen
 export const ALL_DONE = 'All Done!';

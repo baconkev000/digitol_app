@@ -1,42 +1,65 @@
-import {StyleSheet, View, Alert} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import mainStyles from '../../mainStyles';
 import AppText from '../appText';
 import {IconButton, TextInput} from 'react-native-paper';
 import React, {useState} from 'react';
-import CheckBox from '@react-native-community/checkbox';
 import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
 // @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ProgressBar from 'react-native-progress/Bar';
-import {
-  ALERT_ERROR_EMAIL_DESCRIPTION,
-  ALERT_INVALID_EMAIL_DESCRIPTION,
-  ALERT_INVALID_EMAIL,
-  ALERT_ERROR_EMAIL,
-  EMAIL_TEXT,
-} from '../../constants/signup.constants';
+import {CHOOSE_PASSWORD} from '../../constants/signup.constants';
 import ScreenWrapper from '../ScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 
-const EmailScreen = ({navigation}: any) => {
-  const [email, setEmail] = useState('');
-  const [checked, setChecked] = React.useState(true);
+const PasswordScreen = ({navigation}: any) => {
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
+
   const dispatch = useDispatch();
-  const handleEmailChange = (inputValue: any) => {
-    setEmail(inputValue);
+  const handlePasswordChange = (inputValue: string, type = 'default') => {
+    if (type === 'confirm') {
+      setConfirmPassword(inputValue);
+    } else {
+      setPassword(inputValue);
+    }
   };
 
-  const handleValidateEmail = () => {
-    try {
-      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-      if (reg.test(email) === true) {
-        dispatch(UPDATEUSER({email: email, keepUpdated: checked}));
-        navigation.navigate('PasswordScreen');
-      } else {
-        Alert.alert(ALERT_INVALID_EMAIL, ALERT_INVALID_EMAIL_DESCRIPTION);
-      }
-    } catch (error) {
-      Alert.alert(ALERT_ERROR_EMAIL, ALERT_ERROR_EMAIL_DESCRIPTION);
+  const handleValidatePassword = () => {
+    let isValid = true;
+    // Check if the password is at least 8 characters long and password and confirm password are equal
+    if (password.length < 8) {
+      setMessage('\nPassword must be a minimum of 8 characters');
+      isValid = false;
+    }
+
+    if (password !== confirmPassword) {
+      setMessage('\nPasswords must be the same');
+      setConfirmPassword('');
+      isValid = false;
+    }
+
+    // Check if the password contains at least 1 capital letter and 1 special character
+    if (!/(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\\-])/.test(password)) {
+      setMessage(
+        '\nPassword must contain at least 1 capital letter and 1 special character',
+      );
+
+      isValid = false;
+    }
+
+    // If all requirements are met, the password is valid
+    return isValid;
+  };
+
+  const submitPassword = () => {
+    if (handleValidatePassword()) {
+      dispatch(
+        UPDATEUSER({
+          password: password,
+        }),
+      );
+      navigation.navigate('AboutYouScreen');
     }
   };
   return (
@@ -44,7 +67,7 @@ const EmailScreen = ({navigation}: any) => {
       <View style={mainStyles.innerContent}>
         <View style={{paddingBottom: 30}}>
           <ProgressBar
-            progress={0.33}
+            progress={0.66}
             width={null}
             borderColor={ACCENT_COLOR}
             color={ACCENT_COLOR}
@@ -53,54 +76,53 @@ const EmailScreen = ({navigation}: any) => {
           />
         </View>
         <View style={styles.mainTextContainer}>
-          <AppText styles={styles.mainText} text={EMAIL_TEXT[0]} />
+          <AppText styles={styles.mainText} text={CHOOSE_PASSWORD[0]} />
           <AppText
             styles={[styles.mainText, mainStyles.AccentText]}
-            text={EMAIL_TEXT[1]}
+            text={CHOOSE_PASSWORD[1]}
           />
         </View>
         <View style={{paddingTop: 50}}>
           <TextInput
-            label="Email"
-            value={email}
-            onChangeText={text => handleEmailChange(text)}
+            label="Password"
+            value={password}
+            secureTextEntry={true}
+            onChangeText={text => handlePasswordChange(text)}
             mode="outlined"
             outlineStyle={mainStyles.inputOutline}
             contentStyle={mainStyles.inputStyle}
             selectionColor={ACCENT_COLOR}
             outlineColor={ACCENT_COLOR}
             activeOutlineColor={ACCENT_COLOR}
-            placeholder="team@ondigitol.com"
+            placeholder="password"
             placeholderTextColor={'lightgrey'}
+            style={styles.textInputSpacing}
           />
         </View>
-        <View style={styles.updatedContainer}>
-          <CheckBox
-            disabled={false}
-            value={checked}
-            onValueChange={() => setChecked(!checked)}
-            boxType="square"
-            style={styles.checkBox}
-          />
-          <View style={styles.updatedTextContainer}>
-            <AppText styles={styles.updatedText} text={'Keep Me Updated'} />
-            <AppText
-              styles={styles.updatedHelpText}
-              text={
-                'I want to recieve updates about the product, new features, and more.'
-              }
-            />
-          </View>
-        </View>
+        <TextInput
+          label="Confirm Password"
+          value={confirmPassword}
+          secureTextEntry={true}
+          onChangeText={text => handlePasswordChange(text, 'confirm')}
+          mode="outlined"
+          outlineStyle={mainStyles.inputOutline}
+          contentStyle={mainStyles.inputStyle}
+          selectionColor={ACCENT_COLOR}
+          outlineColor={ACCENT_COLOR}
+          activeOutlineColor={ACCENT_COLOR}
+          placeholder="confirm password"
+          placeholderTextColor={'lightgrey'}
+          style={styles.textInputSpacing}
+        />
+        <AppText text={message} styles={mainStyles.messageStyle} />
       </View>
       <View style={mainStyles.nextBtnContainer}>
         <IconButton
           icon="arrow-right"
           style={styles.button}
           iconColor={'white'}
-          size={20}
           onPress={() => {
-            handleValidateEmail();
+            submitPassword();
           }}
         />
       </View>
@@ -114,7 +136,7 @@ const styles = StyleSheet.create({
   },
   mainTextContainer: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
   },
   mainText: {
     fontSize: 40,
@@ -152,6 +174,9 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingLeft: 15,
   },
+  textInputSpacing: {
+    marginBottom: 5,
+  },
 });
 
-export default EmailScreen;
+export default PasswordScreen;

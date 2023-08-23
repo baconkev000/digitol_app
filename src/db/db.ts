@@ -3,5 +3,5 @@ import {User} from './models/user';
 
 export const UserRealmContext: Realm.Configuration = {
   schema: [User],
-  schemaVersion: 4,
+  schemaVersion: 6,
 };

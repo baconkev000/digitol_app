@@ -1,5 +1,5 @@
 import {createSelector, createSlice} from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit'
+import type {PayloadAction} from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -8,6 +8,7 @@ export const userSlice = createSlice({
     firstName: 'GUEST',
     middleName: 'GUEST',
     lastName: 'GUEST',
+    dob: null,
     phone: null,
     email: 'guest@digitol.com',
     keepUpdated: false,

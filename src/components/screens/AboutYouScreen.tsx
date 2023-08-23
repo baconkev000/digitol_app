@@ -4,7 +4,7 @@ import AppText from '../appText';
 import {IconButton, TextInput} from 'react-native-paper';
 import React, {useState} from 'react';
 import {isValid, parse} from 'date-fns';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
 // @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ProgressBar from 'react-native-progress/Bar';
@@ -19,9 +19,6 @@ import {
 } from '../../constants/signup.constants';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 import uuid from 'react-native-uuid';
-import {useRealm} from '@realm/react';
-// @ts-expect-error TS(2614): Module '"../../app/stores/userReducer"' has no exp... Remove this comment to see the full error message
-import {selectUser} from '../../app/stores/userReducer';
 
 const AboutYouScreen = ({navigation}: any) => {
   const [firstName, setFirstName] = useState('');
@@ -29,25 +26,6 @@ const AboutYouScreen = ({navigation}: any) => {
   const [lastName, setLastName] = useState('');
   const [DOB, setDOBName] = useState('');
   const dispatch = useDispatch();
-  // @ts-expect-error TS(2571): Object is of type 'unknown'.
-  const user = useSelector(state => state.user);
-  const realm = useRealm();
-
-  const handleAddUser = () => {
-    realm.write(() => {
-      realm.create('User', {
-        _id: user.userID,
-        first_name: user.firstName,
-        middle_name: user.middleName,
-        last_name: user.lastName,
-        dob: user.dob,
-        phone: user.phone,
-        email: user.email,
-        keep_updated: user.keepUdated,
-        logged_in: true,
-      });
-    });
-  };
 
   const handleInfoChange = (inputValue: string, stateSelector: string) => {
     switch (stateSelector) {
@@ -128,8 +106,8 @@ const AboutYouScreen = ({navigation}: any) => {
               lastName: lastName,
               dob: DOB,
             }),
-          )
-          handleAddUser();
+          );
+          navigation.navigate('LoginFinishScreen');
         } else {
           Alert.alert(ALERT_INVALID_NAME, ALERT_INVALID_NAME_DESCRIPTION);
         }
@@ -144,10 +122,10 @@ const AboutYouScreen = ({navigation}: any) => {
     <ScreenWrapper styles={{justifyContent: 'space-between'}}>
       <View style={{paddingBottom: 30}}>
         <ProgressBar
-          progress={0.75}
+          progress={0.99}
           width={null}
-          borderColor="#21AFFF"
-          color="#21AFFF"
+          borderColor={ACCENT_COLOR}
+          color={ACCENT_COLOR}
         />
       </View>
       <View style={styles.mainTextContainer}>
@@ -165,9 +143,9 @@ const AboutYouScreen = ({navigation}: any) => {
           mode="outlined"
           outlineStyle={mainStyles.inputOutline}
           contentStyle={mainStyles.inputStyle}
-          selectionColor="#21AFFF"
-          outlineColor="#21AFFF"
-          activeOutlineColor="#21AFFF"
+          selectionColor={ACCENT_COLOR}
+          outlineColor={ACCENT_COLOR}
+          activeOutlineColor={ACCENT_COLOR}
           style={styles.textInputSpacing}
         />
         <TextInput
@@ -177,9 +155,9 @@ const AboutYouScreen = ({navigation}: any) => {
           mode="outlined"
           outlineStyle={mainStyles.inputOutline}
           contentStyle={mainStyles.inputStyle}
-          selectionColor="#21AFFF"
-          outlineColor="#21AFFF"
-          activeOutlineColor="#21AFFF"
+          selectionColor={ACCENT_COLOR}
+          outlineColor={ACCENT_COLOR}
+          activeOutlineColor={ACCENT_COLOR}
           style={styles.textInputSpacing}
         />
         <TextInput

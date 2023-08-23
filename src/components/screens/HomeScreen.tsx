@@ -1,11 +1,10 @@
 import {StyleSheet, View, Image} from 'react-native';
 import React from 'react';
-import {Button} from 'react-native-paper';
 import AppText from '../appText';
 import {INTRO_TEXT, INTRO_TEXT_HELPER} from '../../constants/signup.constants';
 import ScreenWrapper from '../ScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
-const IntroScreen = ({navigation}: any) => {
+const HomeScreen = ({navigation}: any) => {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -23,20 +22,6 @@ const IntroScreen = ({navigation}: any) => {
               styles={[styles.introTextHelper, styles.allText]}
               text={INTRO_TEXT_HELPER}
             />
-          </View>
-          <View style={styles.doubleButtonContainer}>
-            <Button
-              style={[styles.registerButton, styles.button]}
-              mode="contained"
-              onPress={() => navigation.navigate('PhoneNumberScreen')}>
-              <AppText styles={styles.registerButtonText} text={'Register'} />
-            </Button>
-            <Button
-              style={[styles.signInButton, styles.button]}
-              mode="contained"
-              onPress={() => navigation.navigate('LoginScreen')}>
-              <AppText styles={styles.signInButtonText} text={'Sign In'} />
-            </Button>
           </View>
         </View>
       </View>
@@ -101,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IntroScreen;
+export default HomeScreen;

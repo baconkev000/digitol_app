@@ -4,7 +4,7 @@ import {Button} from 'react-native-paper';
 import AppText from '../appText';
 import {ALL_DONE} from '../../constants/signup.constants';
 import ScreenWrapper from '../ScreenWrapper';
-import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
+import {ACCENT_COLOR} from '../../constants/style.constants';
 
 const LoginFinishScreen = ({navigation}: any) => {
   return (
@@ -24,7 +24,7 @@ const LoginFinishScreen = ({navigation}: any) => {
           <Button
             style={[styles.ToDigitolBtn, styles.button]}
             mode="contained"
-            onPress={() => navigation.navigate('PhoneNumberScreen')}>
+            onPress={() => navigation.navigate('HomeScreen')}>
             <AppText
               styles={styles.ToDigitolBtnText}
               text={'Continue to Digitol'}

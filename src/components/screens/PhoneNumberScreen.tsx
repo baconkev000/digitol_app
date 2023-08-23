@@ -7,8 +7,6 @@ import PhoneNumber from 'libphonenumber-js';
 import PhoneInput from 'react-native-phone-number-input';
 import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
-import ProgressBar from 'react-native-progress/Bar';
 import {
   PHONE_NUMBER_HELPER,
   PHONE_NUMBER_TEXT,
@@ -19,11 +17,20 @@ import {
 } from '../../constants/signup.constants';
 import ScreenWrapper from '../ScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
+import {useRealm} from '@realm/react';
 
 const PhoneNumberScreen = ({navigation}: any) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const phoneInput = useRef(null);
   const dispatch = useDispatch();
+  const realm = useRealm();
+
+  const userExists = (userPhone: string) => {
+    return (
+      realm.objects('User').filtered('phone_number == $0', userPhone).length ===
+      0
+    );
+  };
 
   const handlePhoneNumberChange = (inputValue: string) => {
     setPhoneNumber(inputValue);
@@ -34,7 +41,11 @@ const PhoneNumberScreen = ({navigation}: any) => {
       // @ts-expect-error TS(2339): Property 'parsePhoneNumberFromString' does not exi... Remove this comment to see the full error message
       const parsedNumber = PhoneNumber.parsePhoneNumberFromString(phoneNumber);
 
-      if (parsedNumber && parsedNumber.isValid()) {
+      if (
+        parsedNumber &&
+        parsedNumber.isValid() &&
+        userExists(parsedNumber.number)
+      ) {
         // add phone number to user info
         dispatch(UPDATEUSER({phone: parsedNumber.number}));
         navigation.navigate('EmailScreen');
@@ -55,14 +66,6 @@ const PhoneNumberScreen = ({navigation}: any) => {
   return (
     <ScreenWrapper styles={styles.container}>
       <View style={mainStyles.innerContent}>
-        <View style={{paddingBottom: 30}}>
-          <ProgressBar
-            progress={0.25}
-            width={null}
-            borderColor="#21AFFF"
-            color="#21AFFF"
-          />
-        </View>
         <AppText styles={styles.mainText} text={PHONE_NUMBER_TEXT[0]} />
         <AppText
           styles={[styles.mainText, mainStyles.AccentText]}
