@@ -1,16 +1,16 @@
 import {StyleSheet, View} from 'react-native';
-import mainStyles from '../../mainStyles';
-import AppText from '../appText';
+import mainStyles from '../../../mainStyles';
+import AppText from '../../appText';
 import {TextInput, Button} from 'react-native-paper';
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {UPDATEUSER} from '../../app/stores/userReducer';
-import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
+import {UPDATEUSER} from '../../../app/stores/userReducer';
+import KeyboardScreenWrapper from '../../KeyboardScreenWrapper';
 import {
   LOGIN_MAIN_TEXT,
   LOGIN_MAIN_TEXT_HELPER,
-} from '../../constants/signup.constants';
-import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
+} from '../../../constants/signup.constants';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../../constants/style.constants';
 import {TouchableWithoutFeedback} from 'react-native';
 import {useRealm} from '@realm/react';
 

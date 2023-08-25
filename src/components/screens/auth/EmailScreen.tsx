@@ -1,11 +1,11 @@
 import {StyleSheet, View, Alert} from 'react-native';
-import mainStyles from '../../mainStyles';
-import AppText from '../appText';
+import mainStyles from '../../../mainStyles';
+import AppText from '../../appText';
 import {IconButton, TextInput} from 'react-native-paper';
 import React, {useState} from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import {useDispatch} from 'react-redux';
-import {UPDATEUSER} from '../../app/stores/userReducer';
+import {UPDATEUSER} from '../../../app/stores/userReducer';
 // @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ProgressBar from 'react-native-progress/Bar';
 import {
@@ -14,9 +14,9 @@ import {
   ALERT_INVALID_EMAIL,
   ALERT_ERROR_EMAIL,
   EMAIL_TEXT,
-} from '../../constants/signup.constants';
-import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
-import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
+} from '../../../constants/signup.constants';
+import KeyboardScreenWrapper from '../../KeyboardScreenWrapper';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../../constants/style.constants';
 
 const EmailScreen = ({navigation}: any) => {
   const [email, setEmail] = useState('');
@@ -26,7 +26,7 @@ const EmailScreen = ({navigation}: any) => {
     setEmail(inputValue);
   };
 
-  const handleValidateEmail = () => {
+  const handleValidateEmail = async () => {
     try {
       let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
       if (reg.test(email) === true) {

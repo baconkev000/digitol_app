@@ -1,12 +1,12 @@
 import {StyleSheet, View, Alert} from 'react-native';
-import mainStyles from '../../mainStyles';
-import AppText from '../appText';
+import mainStyles from '../../../mainStyles';
+import AppText from '../../appText';
 import {IconButton} from 'react-native-paper';
 import React, {useState, useRef} from 'react';
 import PhoneNumber from 'libphonenumber-js';
 import PhoneInput from 'react-native-phone-number-input';
 import {useDispatch} from 'react-redux';
-import {UPDATEUSER} from '../../app/stores/userReducer';
+import {UPDATEUSER} from '../../../app/stores/userReducer';
 
 import {
   PHONE_NUMBER_HELPER,
@@ -15,9 +15,9 @@ import {
   ALERT_INVALID_PHONE_NUMBER,
   ALERT_ERROR_PHONE_NUMBER,
   ALERT_ERROR_PHONE_NUMBER_DESCRIPTION,
-} from '../../constants/signup.constants';
-import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
-import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
+} from '../../../constants/signup.constants';
+import KeyboardScreenWrapper from '../../KeyboardScreenWrapper';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../../constants/style.constants';
 import {useRealm} from '@realm/react';
 
 const PhoneNumberScreen = ({navigation}: any) => {

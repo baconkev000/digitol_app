@@ -1,4 +1,4 @@
-import {createSelector, createSlice} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
@@ -12,11 +12,11 @@ export const userSlice = createSlice({
     phone: null,
     email: 'guest@digitol.com',
     keepUpdated: false,
-    loggedIn: false,
+    initialRoute: 'PhoneNumberScreen',
   },
   reducers: {
-    LOGINOROUT: state => {
-      state.loggedIn = !state.loggedIn;
+    UPDATEINITIALROUTE: (state: any, action: PayloadAction<any>) => {
+      state.initialRoute = action.payload;
     },
     /**
      * @param {state} state
@@ -32,6 +32,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const {LOGINOROUT, UPDATEUSER} = userSlice.actions;
+export const {UPDATEINITIALROUTE, UPDATEUSER} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,15 +1,32 @@
 import {StyleSheet, View, Image} from 'react-native';
 import React from 'react';
-import AppText from '../appText';
-import {INTRO_TEXT, INTRO_TEXT_HELPER} from '../../constants/signup.constants';
-import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
-import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
-const HomeScreen = ({navigation}: any) => {
+import {Button} from 'react-native-paper';
+import AppText from '../../appText';
+import {
+  INTRO_TEXT,
+  INTRO_TEXT_HELPER,
+} from '../../../constants/signup.constants';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../../constants/style.constants';
+import ScreenWrapper from '../../ScreenWrapper';
+import {useApp} from '@realm/react';
+import {UPDATEINITIALROUTE} from '../../../app/stores/userReducer';
+import {useDispatch} from 'react-redux';
+
+const IntroScreen = () => {
+  const app = useApp();
+  const dispatch = useDispatch();
+
+  const tempAuth = (route: string) => {
+    // temp authenticate user and update route based off button chosen
+    app.logIn(Realm.Credentials.anonymous());
+    dispatch(UPDATEINITIALROUTE(route));
+  };
+
   return (
-    <KeyboardScreenWrapper>
+    <ScreenWrapper>
       <View style={styles.container}>
         <Image
-          source={require('../../../assets/digitol_logo.png')}
+          source={require('../../../../assets/digitol_logo.png')}
           style={styles.logo}
         />
         <View style={{width: '100%', alignItems: 'center'}}>
@@ -23,9 +40,23 @@ const HomeScreen = ({navigation}: any) => {
               text={INTRO_TEXT_HELPER}
             />
           </View>
+          <View style={styles.doubleButtonContainer}>
+            <Button
+              style={[styles.registerButton, styles.button]}
+              mode="contained"
+              onPress={() => tempAuth('PhoneNumberScreen')}>
+              <AppText styles={styles.registerButtonText} text={'Register'} />
+            </Button>
+            <Button
+              style={[styles.signInButton, styles.button]}
+              mode="contained"
+              onPress={() => tempAuth('LoginScreen')}>
+              <AppText styles={styles.signInButtonText} text={'Sign In'} />
+            </Button>
+          </View>
         </View>
       </View>
-    </KeyboardScreenWrapper>
+    </ScreenWrapper>
   );
 };
 
@@ -36,8 +67,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
-    height: 300,
-    width: 300,
+    height: 275,
+    width: 275,
   },
   textContainer: {
     width: '75%',
@@ -61,7 +92,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#F5F5F5',
     borderRadius: 15,
-    marginBottom: 25,
+    marginBottom: 45,
   },
   button: {
     width: '50%',
@@ -86,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default IntroScreen;

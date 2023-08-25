@@ -1,11 +1,11 @@
 import {StyleSheet, View, Alert} from 'react-native';
-import mainStyles from '../../mainStyles';
-import AppText from '../appText';
+import mainStyles from '../../../mainStyles';
+import AppText from '../../appText';
 import {IconButton, TextInput} from 'react-native-paper';
 import React, {useState} from 'react';
 import {isValid, parse} from 'date-fns';
 import {useDispatch} from 'react-redux';
-import {UPDATEUSER} from '../../app/stores/userReducer';
+import {UPDATEUSER} from '../../../app/stores/userReducer';
 // @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ProgressBar from 'react-native-progress/Bar';
 import {
@@ -15,10 +15,10 @@ import {
   ALERT_INVALID_DOB,
   ALERT_INVALID_NAME_DESCRIPTION,
   ALERT_INVALID_DOB_DESCRIPTION,
-} from '../../constants/signup.constants';
-import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
+} from '../../../constants/signup.constants';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../../constants/style.constants';
 import uuid from 'react-native-uuid';
-import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
+import KeyboardScreenWrapper from '../../KeyboardScreenWrapper';
 
 const AboutYouScreen = ({navigation}: any) => {
   const [firstName, setFirstName] = useState('');
@@ -107,7 +107,7 @@ const AboutYouScreen = ({navigation}: any) => {
               dob: DOB,
             }),
           );
-          navigation.navigate('LoginFinishScreen');
+          navigation.navigate('RegisterFinishScreen');
         } else {
           Alert.alert(ALERT_INVALID_NAME, ALERT_INVALID_NAME_DESCRIPTION);
         }

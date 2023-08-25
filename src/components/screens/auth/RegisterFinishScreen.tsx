@@ -1,17 +1,27 @@
 import {StyleSheet, View, Image} from 'react-native';
 import React from 'react';
 import {Button} from 'react-native-paper';
-import AppText from '../appText';
-import {ALL_DONE} from '../../constants/signup.constants';
-import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
-import {ACCENT_COLOR} from '../../constants/style.constants';
+import AppText from '../../appText';
+import {ALL_DONE} from '../../../constants/signup.constants';
+import KeyboardScreenWrapper from '../../KeyboardScreenWrapper';
+import {ACCENT_COLOR} from '../../../constants/style.constants';
+import {useApp} from '@realm/react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../../app/stores/store';
 
-const LoginFinishScreen = ({navigation}: any) => {
+const RegisterFinishScreen = ({navigation}: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const app = useApp();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const user = useSelector((state: RootState) => state.user);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const dispatch = useDispatch();
+
   return (
     <KeyboardScreenWrapper>
       <View style={styles.container}>
         <Image
-          source={require('../../../assets/digitol_logo.png')}
+          source={require('../../../../assets/digitol_logo.png')}
           style={styles.logo}
         />
         <View style={{width: '100%', alignItems: 'center'}}>
@@ -80,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginFinishScreen;
+export default RegisterFinishScreen;

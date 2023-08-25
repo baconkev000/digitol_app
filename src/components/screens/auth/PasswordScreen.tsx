@@ -1,22 +1,24 @@
 import {StyleSheet, View} from 'react-native';
-import mainStyles from '../../mainStyles';
-import AppText from '../appText';
+import mainStyles from '../../../mainStyles';
+import AppText from '../../appText';
 import {IconButton, TextInput} from 'react-native-paper';
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {UPDATEUSER} from '../../app/stores/userReducer';
 // @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ProgressBar from 'react-native-progress/Bar';
-import {CHOOSE_PASSWORD} from '../../constants/signup.constants';
-import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
-import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
+import {CHOOSE_PASSWORD} from '../../../constants/signup.constants';
+import KeyboardScreenWrapper from '../../KeyboardScreenWrapper';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../../constants/style.constants';
+import {useApp} from '@realm/react';
+import {RootState} from '../../../app/stores/store';
+import {useSelector} from 'react-redux';
 
 const PasswordScreen = ({navigation}: any) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const app = useApp();
+  const user = useSelector((state: RootState) => state.user);
 
-  const dispatch = useDispatch();
   const handlePasswordChange = (inputValue: string, type = 'default') => {
     if (type === 'confirm') {
       setConfirmPassword(inputValue);
@@ -54,11 +56,10 @@ const PasswordScreen = ({navigation}: any) => {
 
   const submitPassword = () => {
     if (handleValidatePassword()) {
-      dispatch(
-        UPDATEUSER({
-          password: password,
-        }),
-      );
+      app.emailPasswordAuth.registerUser({
+        email: user.email,
+        password: password,
+      });
       navigation.navigate('AboutYouScreen');
     }
   };

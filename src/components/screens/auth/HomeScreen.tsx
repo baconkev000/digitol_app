@@ -1,19 +1,22 @@
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Button} from 'react-native';
 import React from 'react';
-import {Button} from 'react-native-paper';
-import AppText from '../appText';
-import {INTRO_TEXT, INTRO_TEXT_HELPER} from '../../constants/signup.constants';
-import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
-import ScreenWrapper from '../ScreenWrapper';
-const IntroScreen = ({navigation}: any) => {
-  console.log(navigation);
+import AppText from '../../appText';
+import {
+  INTRO_TEXT,
+  INTRO_TEXT_HELPER,
+} from '../../../constants/signup.constants';
+import KeyboardScreenWrapper from '../../KeyboardScreenWrapper';
+import {HELPER_COLOR, ACCENT_COLOR} from '../../../constants/style.constants';
+import {useApp} from '@realm/react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const HomeScreen = ({navigation}: any) => {
+  const app = useApp();
+  const logout = async () => {
+    await app.currentUser?.logOut();
+  };
   return (
-    <ScreenWrapper>
+    <KeyboardScreenWrapper>
       <View style={styles.container}>
-        <Image
-          source={require('../../../assets/digitol_logo.png')}
-          style={styles.logo}
-        />
         <View style={{width: '100%', alignItems: 'center'}}>
           <View style={styles.textContainer}>
             <AppText
@@ -24,24 +27,11 @@ const IntroScreen = ({navigation}: any) => {
               styles={[styles.introTextHelper, styles.allText]}
               text={INTRO_TEXT_HELPER}
             />
-          </View>
-          <View style={styles.doubleButtonContainer}>
-            <Button
-              style={[styles.registerButton, styles.button]}
-              mode="contained"
-              onPress={() => navigation.navigate('PhoneNumberScreen')}>
-              <AppText styles={styles.registerButtonText} text={'Register'} />
-            </Button>
-            <Button
-              style={[styles.signInButton, styles.button]}
-              mode="contained"
-              onPress={() => navigation.navigate('LoginScreen')}>
-              <AppText styles={styles.signInButtonText} text={'Sign In'} />
-            </Button>
+            <Button onPress={() => logout()} title="logout" />
           </View>
         </View>
       </View>
-    </ScreenWrapper>
+    </KeyboardScreenWrapper>
   );
 };
 
@@ -52,8 +42,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
-    height: 275,
-    width: 275,
+    height: 300,
+    width: 300,
   },
   textContainer: {
     width: '75%',
@@ -77,7 +67,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#F5F5F5',
     borderRadius: 15,
-    marginBottom: 45,
+    marginBottom: 25,
   },
   button: {
     width: '50%',
@@ -102,4 +92,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IntroScreen;
+export default HomeScreen;
