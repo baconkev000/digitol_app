@@ -15,7 +15,7 @@ import {
   ALERT_ERROR_EMAIL,
   EMAIL_TEXT,
 } from '../../constants/signup.constants';
-import ScreenWrapper from '../ScreenWrapper';
+import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 
 const EmailScreen = ({navigation}: any) => {
@@ -40,7 +40,7 @@ const EmailScreen = ({navigation}: any) => {
     }
   };
   return (
-    <ScreenWrapper styles={{justifyContent: 'space-between'}}>
+    <KeyboardScreenWrapper styles={{justifyContent: 'space-between'}}>
       <View style={mainStyles.innerContent}>
         <View style={{paddingBottom: 30}}>
           <ProgressBar
@@ -104,7 +104,7 @@ const EmailScreen = ({navigation}: any) => {
           }}
         />
       </View>
-    </ScreenWrapper>
+    </KeyboardScreenWrapper>
   );
 };
 

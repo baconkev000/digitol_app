@@ -7,6 +7,7 @@ import PhoneNumber from 'libphonenumber-js';
 import PhoneInput from 'react-native-phone-number-input';
 import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
+
 import {
   PHONE_NUMBER_HELPER,
   PHONE_NUMBER_TEXT,
@@ -15,7 +16,7 @@ import {
   ALERT_ERROR_PHONE_NUMBER,
   ALERT_ERROR_PHONE_NUMBER_DESCRIPTION,
 } from '../../constants/signup.constants';
-import ScreenWrapper from '../ScreenWrapper';
+import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 import {useRealm} from '@realm/react';
 
@@ -63,8 +64,9 @@ const PhoneNumberScreen = ({navigation}: any) => {
       );
     }
   };
+
   return (
-    <ScreenWrapper styles={styles.container}>
+    <KeyboardScreenWrapper styles={styles.container}>
       <View style={mainStyles.innerContent}>
         <AppText styles={styles.mainText} text={PHONE_NUMBER_TEXT[0]} />
         <AppText
@@ -84,8 +86,6 @@ const PhoneNumberScreen = ({navigation}: any) => {
             textContainerStyle={styles.phoneInput}
             countryPickerButtonStyle={styles.contryPickerBtn}
             autoFocus
-            // @ts-expect-error TS(2322): Type '{ ref: MutableRefObject<null>; defaultValue:... Remove this comment to see the full error message
-            keyboardType="number-pad"
           />
         </View>
       </View>
@@ -100,7 +100,7 @@ const PhoneNumberScreen = ({navigation}: any) => {
           }}
         />
       </View>
-    </ScreenWrapper>
+    </KeyboardScreenWrapper>
   );
 };
 

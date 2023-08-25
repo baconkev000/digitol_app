@@ -3,9 +3,10 @@ import React from 'react';
 import {Button} from 'react-native-paper';
 import AppText from '../appText';
 import {INTRO_TEXT, INTRO_TEXT_HELPER} from '../../constants/signup.constants';
-import ScreenWrapper from '../ScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
+import ScreenWrapper from '../ScreenWrapper';
 const IntroScreen = ({navigation}: any) => {
+  console.log(navigation);
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -51,8 +52,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
-    height: 300,
-    width: 300,
+    height: 275,
+    width: 275,
   },
   textContainer: {
     width: '75%',
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#F5F5F5',
     borderRadius: 15,
-    marginBottom: 25,
+    marginBottom: 45,
   },
   button: {
     width: '50%',

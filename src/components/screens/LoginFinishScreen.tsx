@@ -3,12 +3,12 @@ import React from 'react';
 import {Button} from 'react-native-paper';
 import AppText from '../appText';
 import {ALL_DONE} from '../../constants/signup.constants';
-import ScreenWrapper from '../ScreenWrapper';
+import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
 import {ACCENT_COLOR} from '../../constants/style.constants';
 
 const LoginFinishScreen = ({navigation}: any) => {
   return (
-    <ScreenWrapper>
+    <KeyboardScreenWrapper>
       <View style={styles.container}>
         <Image
           source={require('../../../assets/digitol_logo.png')}
@@ -32,7 +32,7 @@ const LoginFinishScreen = ({navigation}: any) => {
           </Button>
         </View>
       </View>
-    </ScreenWrapper>
+    </KeyboardScreenWrapper>
   );
 };
 

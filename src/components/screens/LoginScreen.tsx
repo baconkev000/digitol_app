@@ -5,41 +5,34 @@ import {TextInput, Button} from 'react-native-paper';
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
-import ScreenWrapper from '../ScreenWrapper';
+import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
 import {
   LOGIN_MAIN_TEXT,
   LOGIN_MAIN_TEXT_HELPER,
 } from '../../constants/signup.constants';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 import {TouchableWithoutFeedback} from 'react-native';
-import {useQuery, useRealm} from '@realm/react';
-import { User } from 'realm';
+import {useRealm} from '@realm/react';
 
 const LoginScreen = ({navigation}: any) => {
   const [emailOrPhone, setEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [user, setUser] = useState('');
-  const realm = useRealm();
-  const te = useQuery('User');
 
   const userExists = () => {
-    const checkEmail = realm
-      .objects('User')
-      .filtered('email == $0 AND password == $1', emailOrPhone, password);
-    const checkPhone = realm
-      .objects('User')
-      .filtered(
-        'phone_number == $0 AND password == $1',
-        emailOrPhone,
-        password,
-      );
-    console.log(te);
-    console.log(checkEmail, checkPhone);
+    // const checkEmail = realm
+    //   .objects('User')
+    //   .filtered('email == $0 AND password == $1', emailOrPhone, password);
+    // const checkPhone = realm
+    //   .objects('User')
+    //   .filtered(
+    //     'phone_number == $0 AND password == $1',
+    //     emailOrPhone,
+    //     password,
+    //   );
+    console.log(checkEmail);
     return false;
   };
-
-  const dispatch = useDispatch();
 
   const handleInfoChange = (inputValue: string, stateSelector: string) => {
     switch (stateSelector) {
@@ -56,13 +49,13 @@ const LoginScreen = ({navigation}: any) => {
   };
 
   const signIn = () => {
-    if (userExists()) {
-      //dispatch(UPDATEUSER({phone: parsedNumber.number}));
-    }
+    // if (userExists()) {
+    //   dispatch(UPDATEUSER({e: parsedNumber.number}));
+    // }
   };
 
   return (
-    <ScreenWrapper styles={{justifyContent: 'space-between'}}>
+    <KeyboardScreenWrapper styles={{justifyContent: 'space-between'}}>
       <View style={mainStyles.innerContent}>
         <View style={{paddingBottom: 30}} />
         <View style={styles.mainTextContainer}>
@@ -129,7 +122,7 @@ const LoginScreen = ({navigation}: any) => {
           </View>
         </TouchableWithoutFeedback>
       </View>
-    </ScreenWrapper>
+    </KeyboardScreenWrapper>
   );
 };
 

@@ -8,7 +8,7 @@ import {UPDATEUSER} from '../../app/stores/userReducer';
 // @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ProgressBar from 'react-native-progress/Bar';
 import {CHOOSE_PASSWORD} from '../../constants/signup.constants';
-import ScreenWrapper from '../ScreenWrapper';
+import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 
 const PasswordScreen = ({navigation}: any) => {
@@ -63,7 +63,7 @@ const PasswordScreen = ({navigation}: any) => {
     }
   };
   return (
-    <ScreenWrapper styles={{justifyContent: 'space-between'}}>
+    <KeyboardScreenWrapper styles={{justifyContent: 'space-between'}}>
       <View style={mainStyles.innerContent}>
         <View style={{paddingBottom: 30}}>
           <ProgressBar
@@ -126,7 +126,7 @@ const PasswordScreen = ({navigation}: any) => {
           }}
         />
       </View>
-    </ScreenWrapper>
+    </KeyboardScreenWrapper>
   );
 };
 

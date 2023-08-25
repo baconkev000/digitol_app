@@ -2,11 +2,11 @@ import {StyleSheet, View, Image} from 'react-native';
 import React from 'react';
 import AppText from '../appText';
 import {INTRO_TEXT, INTRO_TEXT_HELPER} from '../../constants/signup.constants';
-import ScreenWrapper from '../ScreenWrapper';
+import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 const HomeScreen = ({navigation}: any) => {
   return (
-    <ScreenWrapper>
+    <KeyboardScreenWrapper>
       <View style={styles.container}>
         <Image
           source={require('../../../assets/digitol_logo.png')}
@@ -25,7 +25,7 @@ const HomeScreen = ({navigation}: any) => {
           </View>
         </View>
       </View>
-    </ScreenWrapper>
+    </KeyboardScreenWrapper>
   );
 };
 

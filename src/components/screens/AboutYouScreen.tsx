@@ -8,7 +8,6 @@ import {useDispatch} from 'react-redux';
 import {UPDATEUSER} from '../../app/stores/userReducer';
 // @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import ProgressBar from 'react-native-progress/Bar';
-import ScreenWrapper from '../ScreenWrapper';
 import {
   ALERT_ERROR_NAME_OR_DOB,
   ALERT_ERROR_NAME_OR_DOB_DESCRIPTION,
@@ -19,6 +18,7 @@ import {
 } from '../../constants/signup.constants';
 import {HELPER_COLOR, ACCENT_COLOR} from '../../constants/style.constants';
 import uuid from 'react-native-uuid';
+import KeyboardScreenWrapper from '../KeyboardScreenWrapper';
 
 const AboutYouScreen = ({navigation}: any) => {
   const [firstName, setFirstName] = useState('');
@@ -119,7 +119,7 @@ const AboutYouScreen = ({navigation}: any) => {
     }
   };
   return (
-    <ScreenWrapper styles={{justifyContent: 'space-between'}}>
+    <KeyboardScreenWrapper styles={{justifyContent: 'space-between'}}>
       <View style={{paddingBottom: 30}}>
         <ProgressBar
           progress={0.99}
@@ -200,7 +200,7 @@ const AboutYouScreen = ({navigation}: any) => {
           }}
         />
       </View>
-    </ScreenWrapper>
+    </KeyboardScreenWrapper>
   );
 };
 
